@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.4.41/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.0.1","target":"arcade","targetVersion":"1.4.41","repo":"ganecoder/splatoon-robot-2"}
+// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.4.41/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.0.2","target":"arcade","targetVersion":"1.4.41","repo":"ganecoder/splatoon-robot-2"}
 // total=1761419 new=15.46% cached=79.61% other=4.93%
 (function (ectx) {
 'use strict';
@@ -477,7 +477,7 @@ const pxsim_pxtrt = pxsim.pxtrt;
 const pxsim_numops = pxsim.numops;
 
 
-function _main___P135712(s) {
+function _main___P135811(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -1390,13 +1390,13 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-_main___P135712.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"pxt_modules/Timers/main.ts","functionName":"<main>","argumentNames":[]}
-_main___P135712.continuations = [  ]
+_main___P135811.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"pxt_modules/Timers/main.ts","functionName":"<main>","argumentNames":[]}
+_main___P135811.continuations = [  ]
 
-function _main___P135712_mk(s) {
+function _main___P135811_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: _main___P135712, depth: s.depth + 1,
+        parent: s, fn: _main___P135811, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -57206,5 +57206,5 @@ const effects_SceneAnchor__C117942_VT = mkVTable({
 
 const breakpoints = setupDebugger(1, ["transparency16___117107","tile3___117110","tile4___117118","tile6___117114","tile8___117112","tile10___117115","tile11___117117","tile5___117116","tile1___117108","tile2___117109","tile7___117111","tile9___117113","player2___117066","projectile2___117067","projectile3___117068","Boss___117069","blast___117070","hurt___117071","kindle___117072","select___117088","repeat___117079","direction___117084","special___117089","projectile4___117078","mySprite___117087","projectile32___117077","inkzooka___117080","fire___117083","fire1___117076","jump___117085","easter_egg___117086","kraken___117082","hp1___117105","boss_health___117100","kraken1___117081","hp___117104","special2___117075","mysterious___117093","projectile___117094","tornado___117095","projectile22___117096","projectile5___117097","blast2___117098","cpu___117099","dead___117074","tank___117101","tank1___117102","check___117073"])
 
-return _main___P135712
+return _main___P135811
 })
