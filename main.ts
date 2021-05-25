@@ -415,6 +415,9 @@ sprites.onOverlap(SpriteKind.player2, SpriteKind.Projectile, function (sprite, o
     hp1 += -1
     special += 1
 })
+scene.onOverlapTile(SpriteKind.Projectile, assets.tile`tile5`, function (sprite, location) {
+    tiles.setTileAt(location, assets.tile`myTile0`)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.blast, function (sprite, otherSprite) {
     if (kraken == 0) {
         otherSprite.destroy()
@@ -433,11 +436,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.projectile3, function (sprite, o
     hp += -1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Boss, function (sprite, otherSprite) {
-    controller.moveSprite(mySprite, 0, 0)
-    mySprite.vx = -100
-    pause(200)
-    controller.moveSprite(mySprite, 100, 0)
-    mySprite.vx = 0
+    if (easter_egg < 16) {
+        controller.moveSprite(mySprite, 0, 0)
+        mySprite.vx = -100
+        pause(200)
+        controller.moveSprite(mySprite, 100, 0)
+        mySprite.vx = 0
+    }
 })
 let check = 0
 let dead = 0
@@ -722,7 +727,7 @@ forever(function () {
             ................................................
             `)
         mysterious.setFlag(SpriteFlag.GhostThroughWalls, true)
-        tiles.placeOnTile(mysterious, tiles.getTileLocation(5, 8))
+        tiles.placeOnTile(mysterious, tiles.getTileLocation(5, 3))
         boss_health += -2
     }
     if (boss_health == 80) {
@@ -745,7 +750,7 @@ forever(function () {
         mysterious.setImage(assets.image`Temporary asset1`)
         easter_egg = 14
         boss_health += -2
-        mysterious.vx = 100
+        mysterious.vx = 105
         pause(1000)
         mysterious.vx = 0
     }
@@ -753,15 +758,16 @@ forever(function () {
         mysterious.setImage(assets.image`Temporary asset2`)
         easter_egg = 15
         boss_health += -2
-        mysterious.vx = 100
-        pause(1000)
-        mysterious.vx = 0
     }
     if (boss_health == 0) {
+        boss_health += -2
         easter_egg = 20
         pause(5000)
         game.splash("What?", "How did you completely cover me?")
         easter_egg = 16
+        tiles.setTilemap(tilemap`level18`)
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 6))
+        tiles.placeOnTile(mysterious, tiles.getTileLocation(5, 3))
     }
     if (boss_health == -100) {
         game.splash("You Win!")
@@ -774,8 +780,18 @@ forever(function () {
 })
 forever(function () {
     if (special >= 50) {
-        tiles.setTilemap(tilemap`level17`)
-        special = 100
+        if (easter_egg >= 16) {
+            tiles.setTilemap(tilemap`level12`)
+            special = 100
+        }
+    }
+})
+forever(function () {
+    if (special >= 50) {
+        if (easter_egg < 16) {
+            tiles.setTilemap(tilemap`level17`)
+            special = 100
+        }
     }
 })
 forever(function () {
@@ -817,12 +833,16 @@ forever(function () {
 })
 forever(function () {
     if (special == 0) {
-        tiles.setTilemap(tilemap`level14`)
+        if (easter_egg < 16) {
+            tiles.setTilemap(tilemap`level14`)
+        }
     }
 })
 forever(function () {
-    if (tank > 50) {
-        tank = 50
+    if (special == 0) {
+        if (easter_egg >= 16) {
+            tiles.setTilemap(tilemap`level18`)
+        }
     }
 })
 forever(function () {
@@ -840,33 +860,6 @@ forever(function () {
     if (fire1 == 0) {
         tank1 += 1
         pause(500)
-    }
-})
-forever(function () {
-    if (tank > 0) {
-        if (fire == 1) {
-            projectile = sprites.createProjectileFromSprite(img`
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . 8 8 8 . . . . . . 
-                . . . . . 8 8 8 . . . . . . 
-                . . . . . 8 8 8 . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . 
-                `, mySprite, 150, 0)
-            projectile.ay = 200
-            tank += -1
-            pause(100)
-        }
     }
 })
 forever(function () {
@@ -1125,6 +1118,33 @@ forever(function () {
     }
 })
 forever(function () {
+    if (tank > 0) {
+        if (fire == 1) {
+            projectile = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . 8 8 8 . . . . . . 
+                . . . . . 8 8 8 . . . . . . 
+                . . . . . 8 8 8 . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . 
+                `, mySprite, 150, 0)
+            projectile.ay = 200
+            tank += -1
+            pause(100)
+        }
+    }
+})
+forever(function () {
     if (select == 12) {
         if (easter_egg == 11) {
             pause(1000)
@@ -1152,6 +1172,11 @@ forever(function () {
     }
 })
 forever(function () {
+    if (tank > 50) {
+        tank = 50
+    }
+})
+forever(function () {
     if (select == 12) {
         if (easter_egg == 16) {
             pause(200)
@@ -1175,33 +1200,6 @@ forever(function () {
                 `, mysterious, 0, 0)
             blast2.setKind(SpriteKind.blast)
             blast2.follow(mySprite, 50)
-        }
-    }
-})
-forever(function () {
-    if (select == 12) {
-        if (easter_egg == 14) {
-            pause(200)
-            blast2 = sprites.createProjectileFromSide(img`
-                . . . . 7 . . . 7 . . . 7 . . . 
-                . . . 7 7 7 . 7 7 7 . 7 7 7 . . 
-                . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-                7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                . 7 7 7 7 7 6 6 6 6 6 7 7 7 . . 
-                . . 7 7 7 7 6 6 6 6 6 7 7 7 7 . 
-                . 7 7 7 7 7 6 6 6 6 6 7 7 7 7 7 
-                7 7 7 7 7 7 6 6 6 6 6 7 7 7 7 . 
-                . 7 7 7 7 7 6 6 6 6 6 7 7 7 . . 
-                . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-                7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                . 7 7 7 7 7 7 7 7 7 7 7 7 7 . . 
-                . . 7 7 7 . 7 7 7 . 7 7 7 . . . 
-                . . . 7 . . . 7 . . . 7 . . . . 
-                `, 100, 0)
-            tiles.placeOnTile(blast2, tiles.getTileLocation(0, Math.round(randint(1, 6))))
-            blast2.setKind(SpriteKind.blast)
         }
     }
 })
@@ -1235,7 +1233,7 @@ forever(function () {
 forever(function () {
     if (select == 12) {
         if (easter_egg == 13) {
-            pause(200)
+            pause(100)
             blast2 = sprites.createProjectileFromSprite(img`
                 . . . . 7 . . . 7 . . . 7 . . . 
                 . . . 7 7 7 . 7 7 7 . 7 7 7 . . 
@@ -1255,13 +1253,13 @@ forever(function () {
                 . . . 7 . . . 7 . . . 7 . . . . 
                 `, mysterious, 0, 0)
             blast2.setKind(SpriteKind.blast)
-            tiles.placeOnTile(blast2, tiles.getTileLocation(Math.round(randint(0, 9)), 0))
+            tiles.placeOnTile(blast2, tiles.getTileLocation(Math.round(randint(0, 29)), 0))
             blast2.vy = 100
         }
     }
 })
 forever(function () {
-    blast2.setFlag(SpriteFlag.GhostThroughTiles, true)
+    blast2.setFlag(SpriteFlag.GhostThroughWalls, true)
 })
 forever(function () {
     if (mySprite.tileKindAt(TileDirection.Bottom, assets.tile`Tile`)) {
@@ -1425,6 +1423,38 @@ forever(function () {
                 . . . 7 . . . 7 . . . 7 . . . . 
                 `, mysterious, -50, 0)
             blast2.setKind(SpriteKind.blast)
+        }
+    }
+})
+forever(function () {
+    tornado.setFlag(SpriteFlag.GhostThroughWalls, true)
+})
+forever(function () {
+    if (select == 12) {
+        if (easter_egg == 14) {
+            pause(100)
+            blast2 = sprites.createProjectileFromSprite(img`
+                . . . . 7 . . . 7 . . . 7 . . . 
+                . . . 7 7 7 . 7 7 7 . 7 7 7 . . 
+                . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+                7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                . 7 7 7 7 7 6 6 6 6 6 7 7 7 . . 
+                . . 7 7 7 7 6 6 6 6 6 7 7 7 7 . 
+                . 7 7 7 7 7 6 6 6 6 6 7 7 7 7 7 
+                7 7 7 7 7 7 6 6 6 6 6 7 7 7 7 . 
+                . 7 7 7 7 7 6 6 6 6 6 7 7 7 . . 
+                . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+                7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                . 7 7 7 7 7 7 7 7 7 7 7 7 7 . . 
+                . . 7 7 7 . 7 7 7 . 7 7 7 . . . 
+                . . . 7 . . . 7 . . . 7 . . . . 
+                `, mysterious, 0, 0)
+            blast2.setKind(SpriteKind.blast)
+            tiles.placeOnTile(blast2, tiles.getTileLocation(Math.round(randint(0, 29)), 7))
+            blast2.vy = -100
+            blast2.setFlag(SpriteFlag.GhostThroughWalls, true)
         }
     }
 })

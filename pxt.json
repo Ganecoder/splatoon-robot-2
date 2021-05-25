@@ -1,5 +1,5 @@
 {
-    "name": "splatoon robot #2",
+    "name": "splatoon final boss",
     "version": "0.0.2",
     "description": "",
     "dependencies": {
@@ -23,7 +23,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.4.41",
+        "target": "1.4.43",
         "targetId": "arcade"
     },
     "supportedTargets": [
